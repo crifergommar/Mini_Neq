@@ -1,0 +1,225 @@
+class Usuario():
+    
+    def ingreso(self):
+        print("--- BIENVENIDO A MINI_NEQUI ---")
+        print("")
+        nombre= "fernando"
+        self.usu="fernando789"
+        self.usu=self.usu.lower()
+        self.contra="1234"
+        self.num=input(" USUARIO:  ")
+        self.num=self.num.lower()
+        self.clave=input(" CLAVE (4 digitos): ")
+        print("")
+        while self.clave != self.contra or self.num != self.usu:
+            print(" - usuario o clave incorrecto -  ")
+            self.num=input(" ingrese usuario correcto ")
+            self.num=self.num.lower()
+            self.clave=input(" ingrese su clave correcta: ")
+        print("")
+        print("BIENVENIDO " ,nombre)
+        print("")
+
+    def confirmacion(self):
+        self.contra="1234"
+        self.clave=input(" Por favor confirme su clave: ")
+        print("")
+        while self.clave != self.contra:
+            print(" - Ingrese la contraseña correcta, de lo contrario no podrá hacer esta operacion. - ")
+            self.clave=input(" ingrese su clave correcta: ")
+            print("")
+        print(" - Clave correcta, puede continuar con la operacion - ")
+        print("")
+        
+class Accion(Usuario):
+    def __init__(self):
+        self.saldo=0
+
+    def depositar(self):
+        super().confirmacion()
+
+        print("")
+        print(" --- Está apunto de hacer un deposito. --- ")
+        self.valor_re=int(input("Ingrese el valor a depositar: "))
+        print("")
+        
+        while self.valor_re<=0:
+            print("- Ingrese un valor correcto. -")
+            print("")
+            print(" --- Está apunto de hacer una deposito. --- ")
+            self.valor_re=int(input("Ingrese el valor a depositar: "))
+            print("")
+        if self.valor_re>0:
+            print("")
+            print(" --- CONFIRMAR deposito --- ")
+            print("")
+            print("1. DEPOSITAR A MI CUENTA: " ,self.valor_re)
+            print("2. Volver al menú principal. ")
+            opp=int(input("Opción: "))
+            print("")
+            while opp>=3 or opp==0:
+                print("-- Ingrese una opción válida --")
+                print("")
+                print(" --- CONFIRMAR DEPOSITO --- ")
+                print("")
+                print("1. DEPOSITAR A MI CUENTA: " ,self.valor_re)
+                print("2. Cancelar y Volver al menú principal. ")
+                opp=int(input("Opción:"))
+                print("")
+            if opp ==1:
+                self.saldo= self.saldo + self.valor_re
+                print("--Deposito exitoso--")
+                print("Su nuevo saldo es: " ,self.saldo)
+                print("")
+            elif opp==2:
+                print("-- Deposito cancelado --")
+                print("Regresando al menú principal...")
+                print("")
+            elif self.valor_re<=0:
+                print("Ingrese un numero con valor")
+                print("")
+
+    def consignar(self):
+        super().confirmacion()
+
+        if self.saldo>0:
+            print(" -- En este momento esta apunto de realizar una consignacion y su saldo es de: " ,self.saldo," -- ")
+            self.cuenta=input(" ingrese numero de telefono a enviar plata:  ")
+            self.valor_t=int(input(" ingrese el valor a transferir: "))
+            print("")
+
+            while self.valor_t<=0:
+              print("- Ingrese un valor correcto. -")
+              print("")
+              print(" --- Está apunto de hacer una transferencia. --- ")
+              self.valor_re=int(input("Ingrese el valor a transferir correcto: "))
+              print("")
+            if self.valor_t<=self.saldo:
+                  print("")
+                  print("--- CONFIRMAR TRANSFERENCIA ---")
+                  print("")
+                  print("No. Telefono quien recibe: " ,self.cuenta, "\n Valor a enviar: " ,self.valor_t)
+                  print("")
+                  print("1. ENVIAR ")
+                  print("2. DESCARTAR")
+                  opp=int(input("Ingrese opcion:")) 
+                  print("")
+                  while opp>=3 or opp<=0:
+                    print("Ingrese opcion válida.")
+                    print("")
+                    print("CONFIRMAR TRANSFERENCIA")
+                    print("")
+                    print("1. ENVIAR ")
+                    print("2. DESCARTAR")
+                    opp=int(input("Opción:")) 
+                    print("")
+                  if opp ==1:
+                    self.saldo=self.saldo - self.valor_t
+                    print("Transferencia realizada")
+                    print("Su nuevo saldo es: " ,self.saldo)
+                    print("")
+                  elif opp==2:
+                    print("Transferencia cancelada")
+                  print("Regresando al menú principal...")
+                  print("")
+
+            elif self.valor_t>self.saldo:
+                  print("Saldo insuficiente para hacer esta consignacion, monto máximo a transferir: " ,self.saldo, "\n Primero recargue su cuenta para poder enviar")
+                  print("")
+        elif self.saldo==0:
+              print(" -- Saldo insuficiente para realizar una consignacion a otra cuenta, primero recargue su cuenta -- ")
+        
+    
+    def retirar(self):
+        super().confirmacion()
+
+        if self.saldo==0:
+            print(" - IMPOSIBLE REALIZAR UN RETIRO - ")
+            print("En este momento su saldo es de : " ,self.saldo,". Primero recargue su cuenta \n")
+            print("")
+
+        elif self.saldo > 0:
+            print(" --- Está apunto de hacer un retiro --- ")
+            print("En este momento su saldo es de : " ,self.saldo)
+            self.valor_r=int(input(" ingrese cuanto dinero desea retirar de la app MINI_NEQUI:  "))
+            print("")
+
+            while self.valor_r<=0:
+              print(" --- Ingrese un numero con valor.")
+              print(" --- Está apunto de hacer un retiro --- ")
+              print("En este momento su saldo es de : " ,self.saldo)
+              self.valor_r=int(input(" ingrese cuanto dinero desea retirar de la app MINI_NEQUI:  "))
+              print("")
+            print("Continue...")
+
+            if self.valor_r<=self.saldo:
+              print("")
+              print("--- CONFIRMAR RETIRO ---")
+              print("")
+              print(" Valor a retirar: " ,self.valor_r)
+              print("")
+              print("1. RETIRAR ")
+              print("2. CANCELAR Y VOLVER")
+              opp=int(input("Ingrese opcion:")) 
+              print("")
+
+              while opp>=3 or opp==0:
+                  print("Ingrese opcion válida.")
+                  print("")
+                  print(" --- CONFIRMAR RETIRO --- " )
+                  print("")
+                  print("1. RETIRAR ")
+                  print("2. CANCELAR Y VOLVER ")
+                  opp=int(input("Opción:")) 
+                  print("")
+              if opp ==1:
+                  self.saldo = (self.saldo - self.valor_r)
+                  print("")
+                  print(" -- Retiro realizado -- ")
+                  print("")
+                  print("Su nuevo saldo es: "  ,self.saldo)
+                  print("")
+              elif opp==2:
+                  print("")
+                  print(" -- Retiro Cancelado -- ")
+                  print("")
+                  
+              print("Regresando al menú principal...")
+              print("")
+
+            elif self.valor_r>self.saldo:
+                  print(" - IMPOSIBLE REALIZAR UN RETIRO - ")
+                  print("Saldo insuficiente para hacer esta operación, monto máximo a retirar: " ,self.saldo, "\n Primero recargue su cuentar")
+                  print("")
+
+              
+        
+usu1=Usuario()
+usu1.ingreso()
+print("")
+usu1=Accion()
+op=0
+while not op ==4:
+    print("")
+    print("--- MENU DE OPCIONES ----")
+    print("")
+    print("1. DEPOSITAR CUENTA")
+    print("2. CONSIGNAR DINERO A OTRA CUENTA")
+    print("3. RETIRAR DINERO DE LA APP MINI_NEQUI")
+    print("4. SALIR DE LA APP MINI_NEQUI")
+    print("")
+    print("")
+    print("SALDO: " ,usu1.saldo)
+    print("")
+    op=int(input("op: "))
+    if op==1:
+        print("")
+        print(usu1.depositar())
+    elif op==2:
+        print(" --- Está apunto de hacer una consignacion --- ")
+        print(usu1.consignar())
+    elif op==3:
+        print(usu1.retirar())
+    else:
+        print("Ingrese opcion válida. ")
+print(" --- GRACIAS POR UTILIZAR MINI_NEQUI --- ")  
